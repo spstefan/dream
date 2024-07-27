@@ -8,29 +8,37 @@ form.addEventListener('submit', async (e) => {
 
   const data = new FormData(form);
 
-  const response = await fetch('http://localhost:8080/dream', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      prompt: data.get('prompt'),
-    })
-  });
+  try {
+    const response = await fetch('http://localhost:8080/dream', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: data.get('prompt'),
+      })
+    });
 
-  if (response.ok) {
-    const { image } = await response.json();
+    if (response.ok) {
+      const { image } = await response.json();
 
-    const result = document.querySelector('#result');
-    result.innerHTML = `<img src="${image}" width="512" />`;
+      const result = document.querySelector('#result');
+      result.innerHTML = `<img src="${image}" width="512" />`;
 
-  hideSpinner();
-  } else {
-    const err = await response.text();
-    alert(err);
-    console.error(err);
+    hideSpinner();
+    } else {
+      const err = await response.text();
+      alert(err);
+      console.error(err);
+      hideSpinner();
+    }
+
+  } catch (error) {
+    alert('An error occurred while processing your request.');
+    console.error('Fetch error:', error);
+  } finally {
+    hideSpinner();
   }
-
 });
 
 function showSpinner() {
