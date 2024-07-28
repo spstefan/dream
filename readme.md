@@ -1,6 +1,9 @@
 # Image Generator Website
 This repository contains a web application that allows users to generate images based on inputted prompts using OpenAI's API. The application is built using Vite, Node.js, and vanilla JavaScript.
 
+## Demo
+![demo](./public/demo.gif)
+
 # Installation
 To get started with the project, clone the repository and install the dependencies:
 ```bash 
